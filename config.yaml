@@ -1,0 +1,8 @@
+---
+api_token: 'PSEsmywGqiEMyVni5r54'
+variables: 'AirTC'
+dest_dir: 'AIRTC'
+---
+api_token: 'PSfdmywGqiEMyVni5r54'
+variables: 'AirC'
+dest_dir: 'AIC'
