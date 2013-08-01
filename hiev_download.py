@@ -10,6 +10,7 @@ import os
 import json
 import urllib2
 import yaml
+from datetime import date, timedelta
 
 
 # --Read the yaml settings file into python 
@@ -24,11 +25,16 @@ api_token = settings['api_token']
 for entry in settings['params']:
     variables = entry['variables']
     dest_dir = entry['dest_dir']
+    ingest = entry['ingest']
 
-    # --Set up the http request
+    # --Set up the http request (depending on ingest period, daily etc)
     request_headers = {'Content-Type' : 'application/json; charset=UTF-8', 'X-Accept': 'application/json'}
-    request_data    = json.dumps({'auth_token': api_token, 'variables' : variables})
-    
+    if ingest == 'daily': #only grab matching data uploaded from the last day
+        upload_from_date = str(date.today() - timedelta(days=1))  
+        request_data = json.dumps({'auth_token': api_token, 'upload_from_date': upload_from_date, 'variables' : variables})
+    else: #grab all matching data
+        request_data = json.dumps({'auth_token': api_token, 'variables' : variables})
+        
     # --Handle the returned response from the HIEv server
     request  = urllib2.Request(request_url, request_data, request_headers)
     response = urllib2.urlopen(request)
@@ -47,7 +53,7 @@ for entry in settings['params']:
         # --Write the file
         with open(os.path.join(dest_dir, item['filename']), 'wb') as local_file:
             local_file.write(f.read())
-            
-    #TODO Print a summary of activity to a local log file
-    #TODO Abstract filter variables out to a configuration file
+     
+    #Uncomment below if running interactively        
     print 'Total files = %s' %len(js)
+

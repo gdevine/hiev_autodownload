@@ -1,10 +1,30 @@
+#Settings for automated download of HIEv files - used to run hiev_autodownload.py
+#
+# -- Notes
+# - Your API Token can be retrieved from the HIEv account webpage
+# - If a dest_dir is not already created, the script will automatically create it
+# - Multiple variables can be added under one search
+#
+# -- Example file:
+#  request_url: 'http://w0297.uws.edu.au/data_files/api_search'
+#  api_token: 'dhs6fhsf7sf7fssfdsd'
+#
+#  params:
+#  - variables: ['AirTC']
+#    dest_dir: '/home/gerarddevine/dev/misc/downloads/AIRTC'
+#  
+#  - variables: ['SoilTemp_Avg(1)', 'SoilTemp_Avg(2)']
+#    dest_dir: '/home/gerarddevine/dev/misc/downloads/SoilTemp_Avg'
+# --
+
 ---
 request_url: 'http://w0297.uws.edu.au/data_files/api_search'
 api_token: 'My_API_Token'
 
 params:
-  - variables: ['AirTC']
-    dest_dir: '/home/gerarddevine/dev/misc/downloads/AIRTC'
+  - variables: ['Var1']
+    dest_dir: '/path/to/download/directory2' 
   
-  - variables: ['SoilTemp_Avg(1)', 'SoilTemp_Avg(2)']
-    dest_dir: '/home/gerarddevine/dev/misc/downloads/SoilTemp_Avg'
+  - variables: ['Var2', 'Var3']
+    dest_dir: '/path/to/download/directory2'
+    ingest: 'daily'
