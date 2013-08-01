@@ -7,7 +7,7 @@
 #
 # -- Example file:
 #  request_url: 'http://w0297.uws.edu.au/data_files/api_search'
-#  api_token: 'dhs6fhsf7sf7fssfdsd'
+#  api_token: 'justadummyapitoken'
 #
 #  params:
 #  - variables: ['AirTC']
