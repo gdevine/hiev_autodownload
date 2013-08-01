@@ -1,6 +1,6 @@
 '''
 Python script to perform a HIEv API filter search and then download of files 
-based on the returned urls. This script is informed by a config.yaml file.
+based on the returned urls. This script is informed by a settings.yaml file.
 
 Author: Gerard Devine
 Date: July 2013
