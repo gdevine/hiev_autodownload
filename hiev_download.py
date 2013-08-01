@@ -1,5 +1,5 @@
 '''
-Python script to perform a HIEv API filter search and then download files based on the returned urls
+Python script to perform a HIEv API filter search and then download of files based on the returned urls
 
 Author: Gerard Devine
 Date: July 2013
@@ -10,18 +10,20 @@ import urllib2
 import yaml
 
 
-# --Read in settings from config file
+# --Read in parameters set from config file
 stram = open("config.yaml", "r")
-doc = yaml.load_all(stram)
+paramset = yaml.load_all(stram)
 
 
-for x in doc:
-    api_token = x["api_token"]
+# --Iterate over each individual entry in the parameters set
+for entry in paramset:
+    request_url = entry['request_url']
+    api_token = entry['api_token']
+    variables = entry['variables']
 
     # --Set up my request
-    request_url     = "http://w0297.uws.edu.au/data_files/api_search"
     request_headers = {'Content-Type' : 'application/json; charset=UTF-8','X-Accept': 'application/json'}
-    request_data    = json.dumps({"auth_token": api_token, "variables" : ["AirTC"]})
+    request_data    = json.dumps({"auth_token": api_token, "variables" : variables})
     
     
     # --Handle the returned response from the HIEv server
@@ -32,7 +34,7 @@ for x in doc:
     
     # --For each element returned pass the url to the download API and download
     for item in js:
-        download_url = item["url"]+'?'+'auth_token=PSEsmywGqiEMyVni5r54'
+        download_url = item["url"]+'?'+'auth_token=%s' %api_token
         request  = urllib2.Request(download_url)
         f = urllib2.urlopen(request)
     

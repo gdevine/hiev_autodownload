@@ -1,8 +1,9 @@
----
-api_token: 'PSEsmywGqiEMyVni5r54'
-variables: 'AirTC'
+request_url: 'http://w0297.uws.edu.au/data_files/api_search'
+api_token: 'PSEgsdfgsdfgsfdsmywGqiEMyVni5r54'
+variables: ['AirTC']
 dest_dir: 'AIRTC'
 ---
-api_token: 'PSfdmywGqiEMyVni5r54'
-variables: 'AirC'
-dest_dir: 'AIC'
+request_url: 'http://w0297.uws.edu.au/data_files/api_search'
+api_token: 'PSEsmywGqiEMyVdfgdfi5r54'
+variables: ['AirTC']
+dest_dir: 'AIRTC'
