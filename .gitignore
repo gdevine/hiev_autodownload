@@ -3,5 +3,6 @@
 .project
 .pydevproject
 build/
-logs/*.log
+logs/*
+data/*
 local_settings.yaml

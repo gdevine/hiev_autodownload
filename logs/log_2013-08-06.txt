@@ -6,3 +6,11 @@
   Total files downloaded = 36 
  -For files being downloaded to SOILTEMP_AVG 
   Total files downloaded = 22 
+
+----------------------------------------------- 
+------------  2013-08-06 14:01:27  ------------ 
+----------------------------------------------- 
+ -For files being downloaded to AIRTC 
+  Total files downloaded = 36 
+ -For files being downloaded to SOILTEMP_AVG 
+  Total files downloaded = 22 
