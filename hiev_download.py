@@ -13,11 +13,11 @@ import yaml
 from datetime import date, datetime, timedelta
 
 
-# --Read the yaml settings file into python  
+# --Read the settings file into python  
 try:
-    stram = open("local_settings.yaml", "r") #for running in a dev environment
+    stram = open(os.path.join(os.path.dirname(__file__), "local_settings.yaml"), "r") #for running in a dev environment
 except:
-    stram = open("settings.yaml", "r")
+    stram = open(os.path.join(os.path.dirname(__file__), "settings.yaml"), "r")
 settings = yaml.load(stram)
 
 # --Parse global values
@@ -26,7 +26,7 @@ api_token = settings['api_token']
 
 # --Open log file for writing and append date/time stamp into file for a new entry
 logfile = 'log_'+str(date.today())+'.txt'
-log = open(os.path.join(os.getcwd(), 'logs', logfile), 'a')
+log = open(os.path.join(os.path.dirname(__file__), 'logs', logfile), 'a')
 log.write('\n----------------------------------------------- \n')
 log.write('------------  '+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'  ------------ \n')
 log.write('----------------------------------------------- \n')
@@ -54,7 +54,7 @@ for entry in settings['params']:
     
     # --If there are files to be downloaded, then set up a directory to hold them (if not existing)
     if len(js):
-        dest_dir = os.path.join(os.getcwd(), 'data', entry['dirname'])
+        dest_dir = os.path.join(os.path.join(os.path.dirname(__file__), 'data', entry['dirname']))
         if not os.path.exists(dest_dir):
             os.makedirs(dest_dir) 
         # --For each element returned pass the url to the download API and download
