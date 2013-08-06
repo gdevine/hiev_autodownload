@@ -26,7 +26,7 @@ api_token = settings['api_token']
 
 # --Open log file for writing and append date/time stamp into file for a new entry
 logfile = 'log_'+str(date.today())+'.txt'
-log = open(os.path.join(os.getcwd(), 'logs', logfile), 'w')
+log = open(os.path.join(os.getcwd(), 'logs', logfile), 'a')
 log.write('\n----------------------------------------------- \n')
 log.write('------------  '+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'  ------------ \n')
 log.write('----------------------------------------------- \n')
