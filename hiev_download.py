@@ -15,7 +15,7 @@ from datetime import date, datetime, timedelta
 
 # --Read the yaml settings file into python  
 try:
-    stram = open("local_settings.yaml", "r") #for running in a dev environemnt
+    stram = open("local_settings.yaml", "r") #for running in a dev environment
 except:
     stram = open("settings.yaml", "r")
 settings = yaml.load(stram)
