@@ -11,10 +11,12 @@
 #
 #  params:
 #  - variables: ['AirTC']
-#    dest_dir: '/home/gerarddevine/dev/misc/downloads/AIRTC'
+#    dirname: 'AIRTC'
+#    ingest: ''
 #  
 #  - variables: ['SoilTemp_Avg(1)', 'SoilTemp_Avg(2)']
-#    dest_dir: '/home/gerarddevine/dev/misc/downloads/SoilTemp_Avg'
+#    dirname: 'SoilTemp_Avg'
+#    ingest: 'daily'
 # --
 
 ---
@@ -23,8 +25,9 @@ api_token: 'My_API_Token'
 
 params:
   - variables: ['Var1']
-    dest_dir: '/path/to/download/directory2' 
+    dirname: 'DIRECTORY1'
+    ingest: '' 
   
   - variables: ['Var2', 'Var3']
-    dest_dir: '/path/to/download/directory2'
+    dirname: 'DIRECTORY2'
     ingest: 'daily'
