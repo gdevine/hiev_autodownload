@@ -21,6 +21,9 @@ settings = yaml.load(stram)
 request_url = settings['request_url']
 api_token = settings['api_token']
 
+# --Open log file for writing
+log = open('log_'+str(date_today()+'.txt', 'w')
+
 # --Iterate over each individual entry in the params set
 for entry in settings['params']:
     variables = entry['variables']
@@ -55,5 +58,9 @@ for entry in settings['params']:
             local_file.write(f.read())
      
     #Uncomment below if running interactively        
-    print 'Total files = %s' %len(js)
+    log.write('Total files = %s\n' %len(js))
+    print 'Total files = %s\n' %len(js)
 
+
+# --Close log file
+log.close()
