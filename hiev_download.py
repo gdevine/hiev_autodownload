@@ -26,7 +26,7 @@ api_token = settings['api_token']
 
 # --Open log file for writing and append date/time stamp into file for a new entry
 logfile = 'log_'+str(date.today())+'.txt'
-log = open(os.path.join(os.getcwd(), 'logs', logfile), 'a')
+log = open(os.path.join(os.getcwd(), 'logs', logfile), 'w')
 log.write('\n----------------------------------------------- \n')
 log.write('------------  '+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'  ------------ \n')
 log.write('----------------------------------------------- \n')
@@ -34,7 +34,6 @@ log.write('----------------------------------------------- \n')
 # --Iterate over each individual entry in the params set
 for entry in settings['params']:
     variables = entry['variables']
-    dest_dir = os.path.join(os.getcwd(), 'data', entry['dirname'])
     ingest = entry['ingest']
     
     # --Begin a log entry for this iteration
@@ -53,24 +52,26 @@ for entry in settings['params']:
     response = urllib2.urlopen(request)
     js = json.load(response)
     
-    # --For each element returned pass the url to the download API and download
-    for item in js:
-        download_url = item['url']+'?'+'auth_token=%s' %api_token
-        request  = urllib2.Request(download_url)
-        f = urllib2.urlopen(request)
-    
-        # --Create the directory to write to if not already existing 
+    # --If there are files to be downloaded, then set up a directory to hold them (if not existing)
+    if len(js):
+        dest_dir = os.path.join(os.getcwd(), 'data', entry['dirname'])
         if not os.path.exists(dest_dir):
-            os.makedirs(dest_dir)
+            os.makedirs(dest_dir) 
+        # --For each element returned pass the url to the download API and download
+        for item in js:
+            download_url = item['url']+'?'+'auth_token=%s' %api_token
+            request  = urllib2.Request(download_url)
+            f = urllib2.urlopen(request)
+                    
+            # --Write the file
+            with open(os.path.join(dest_dir, item['filename']), 'w') as local_file:
+                local_file.write(f.read())
+            local_file.close()
+         
+        log.write('  Total files downloaded = %s \n' %len(js))
+    else:
+        log.write('  No files matched the search params \n')
         
-        # --Write the file
-        with open(os.path.join(dest_dir, item['filename']), 'w') as local_file:
-            local_file.write(f.read())
-        local_file.close()
-     
-    #Uncomment below if running interactively        
-    log.write('  Total files downloaded = %s \n' %len(js))
-
 
 # --Close log file
 log.close()
