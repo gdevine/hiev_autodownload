@@ -18,7 +18,7 @@
 # --
 
 ---
-request_url: 'http://w0297.uws.edu.au/data_files/api_search'
+request_url: 'http://hiev.uws.edu.au/data_files/api_search'
 api_token: 'My_API_Token'
 
 params:

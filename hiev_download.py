@@ -10,25 +10,35 @@ import os
 import json
 import urllib2
 import yaml
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
 
-# --Read the yaml settings file into python 
-stram = open("settings.yaml", "r")
+# --Read the yaml settings file into python  
+try:
+    stram = open("local_settings.yaml", "r") #for running in a dev environemnt
+except:
+    stram = open("settings.yaml", "r")
 settings = yaml.load(stram)
 
 # --Parse global values
 request_url = settings['request_url']
 api_token = settings['api_token']
 
-# --Open log file for writing
-log = open('log_'+str(date_today()+'.txt', 'w')
+# --Open log file for writing and append date/time stamp into file for a new entry
+logfile = 'log_'+str(date.today())+'.txt'
+log = open(os.path.join(os.getcwd(), 'logs', logfile), 'a')
+log.write('\n----------------------------------------------- \n')
+log.write('------------  '+datetime.now().strftime('%Y-%m-%d %H:%M:%S')+'  ------------ \n')
+log.write('----------------------------------------------- \n')
 
 # --Iterate over each individual entry in the params set
 for entry in settings['params']:
     variables = entry['variables']
-    dest_dir = entry['dest_dir']
+    dest_dir = os.path.join(os.getcwd(), 'data', entry['dirname'])
     ingest = entry['ingest']
+    
+    # --Begin a log entry for this iteration
+    log.write(' -For files being downloaded to %s \n' %entry['dirname'])
 
     # --Set up the http request (depending on ingest period, daily etc)
     request_headers = {'Content-Type' : 'application/json; charset=UTF-8', 'X-Accept': 'application/json'}
@@ -54,12 +64,12 @@ for entry in settings['params']:
             os.makedirs(dest_dir)
         
         # --Write the file
-        with open(os.path.join(dest_dir, item['filename']), 'wb') as local_file:
+        with open(os.path.join(dest_dir, item['filename']), 'w') as local_file:
             local_file.write(f.read())
+        local_file.close()
      
     #Uncomment below if running interactively        
-    log.write('Total files = %s\n' %len(js))
-    print 'Total files = %s\n' %len(js)
+    log.write('  Total files downloaded = %s \n' %len(js))
 
 
 # --Close log file
