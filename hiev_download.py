@@ -63,7 +63,7 @@ for entry in settings['params']:
             request  = urllib2.Request(download_url)
             f = urllib2.urlopen(request)
                     
-            # --Write the file
+            # --Write the file and close it
             with open(os.path.join(dest_dir, item['filename']), 'w') as local_file:
                 local_file.write(f.read())
             local_file.close()
